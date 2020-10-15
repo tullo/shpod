@@ -1,24 +1,18 @@
-FROM golang:alpine AS jid
+FROM golang:1.15.3-alpine3.12 AS jid
 RUN apk add git
 RUN go get -u github.com/simeji/jid/cmd/jid
-FROM alpine
+
+FROM alpine:3.12
 ENV \
- COMPOSE_VERSION=1.26.2 \
- HELM_VERSION=3.3.0 \
- KUBECTL_VERSION=1.18.8 \
- SHIP_VERSION=0.51.3 \
+ HELM_VERSION=3.3.4 \
+ KUBECTL_VERSION=1.19.3 \
+ SHIP_VERSION=0.54.1 \
  STERN_VERSION=1.11.0
 ## Alpine base ##
 ENV COMPLETIONS=/usr/share/bash-completion/completions
 RUN apk add bash bash-completion curl git jq libintl ncurses openssl tmux vim apache2-utils
 RUN sed -i s,/bin/ash,/bin/bash, /etc/passwd
-## Ubuntu base ##
-#ENV COMPLETIONS=/etc/bash_completion.d
-#RUN apt-get update \
-# && apt-get install -y curl git jq vim apache2-utils
-## Install a bunch of binaries
-RUN curl -L -o /usr/local/bin/docker-compose https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-Linux-x86_64 \
- && chmod +x /usr/local/bin/docker-compose
+# https://storage.googleapis.com/kubernetes-release/release/stable.txt
 RUN curl -L -o /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl \
  && chmod +x /usr/local/bin/kubectl
 RUN kubectl completion bash > $COMPLETIONS/kubectl.bash
@@ -61,4 +55,3 @@ ENV \
  KUBE_PS1_NS_COLOR="green" \
  PS1="\e[1m\e[31m[\$HOSTIP] \e[32m(\$(kube_ps1)) \e[34m\u@\h\e[35m \w\e[0m\n$ "
 ENTRYPOINT ["bash", "-l"]
-
