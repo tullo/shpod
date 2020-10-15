@@ -31,7 +31,7 @@ spec:
   serviceAccountName: shpod
   containers:
   - name: shpod
-    image: jpetazzo/shpod
+    image: tullo/shpod
     imagePullPolicy: IfNotPresent
     stdin: true
     tty: true
