@@ -70,4 +70,8 @@ The Pod uses image [tullo/shpod](https://hub.docker.com/r/tullo/shpod) on the Do
 
 ## Opening multiple sessions
 
-Shpod tries to detect if it is already running; and if it's the case, it will try to start another process using `kubectl exec`. Note that if the first shpod process exits, Kubernetes will terminate all the other processes.
+Shpod tries to detect if it is already running; and if it's the case,
+it will try to start another process using `kubectl exec`. Note that
+if the first shpod process exits, Kubernetes will terminate all the
+other processes.
+
