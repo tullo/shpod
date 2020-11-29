@@ -2,13 +2,20 @@
 
 `shpod` is a container image based on the Alpine distribution and embarking a bunch of tools useful when working with Kubernetes:
 
-- kubectl
+- compose
 - helm
-- ship
+- jid
+- jq
+- krew
+- kubectl
 - kubectx + kubens
 - kube-ps1
+- kubeseal
+- k9s
+- ship
+- skaffold
 - stern
-- compose
+- tilt
 
 It also includes tmux, a custom prompt, and completion for all of the above.
 
@@ -60,3 +67,7 @@ If you want to delete the resources manually, you can use `kubectl delete -f shp
 The YAML file is a Kubernetes manifest for a Pod, a ServiceAccount, a ClusterRoleBinding, and a Namespace to hold the Pod and ServiceAccount.
 
 The Pod uses image [tullo/shpod](https://hub.docker.com/r/tullo/shpod) on the Docker Hub, built from this repository https://github.com/tullo/shpod.
+
+## Opening multiple sessions
+
+Shpod tries to detect if it is already running; and if it's the case, it will try to start another process using `kubectl exec`. Note that if the first shpod process exits, Kubernetes will terminate all the other processes.
