@@ -1,13 +1,13 @@
-FROM golang:1.15.3-alpine3.12 AS jid
+FROM golang:1.16.0-alpine3.13 AS jid
 RUN apk add git
-RUN go get -u github.com/simeji/jid/cmd/jid
+RUN GO111MODULE=on go get -u github.com/simeji/jid/cmd/jid@v0.7.6
 
-FROM alpine:3.12
+FROM alpine:3.13.2
 ENV \
  COMPOSE_VERSION=1.26.2 \
- HELM_VERSION=3.3.4 \
+ HELM_VERSION=3.5.2 \
  KUBECTL_VERSION=1.19.3 \
- SHIP_VERSION=0.54.1 \
+ SHIP_VERSION=0.55.0 \
  STERN_VERSION=1.11.0
 # https://storage.googleapis.com/kubernetes-release/release/stable.txt
 ## Alpine base ##
